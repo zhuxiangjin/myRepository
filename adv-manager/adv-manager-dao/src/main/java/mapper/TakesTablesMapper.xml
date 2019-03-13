@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adv.mapper.TakesTablesMapper" >
+  <resultMap id="BaseResultMap" type="com.adv.pojo.TakesTables" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="materials" property="materials" jdbcType="VARCHAR" />
+    <result column="takes_name" property="takesName" jdbcType="VARCHAR" />
+    <result column="takes_number" property="takesNumber" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="takes_date" property="takesDate" jdbcType="TIMESTAMP" />
+    <result column="application" property="application" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, materials, takes_name, takes_number, price, takes_date, application
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.adv.pojo.TakesTablesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from takes_tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from takes_tables
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from takes_tables
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adv.pojo.TakesTablesExample" >
+    delete from takes_tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adv.pojo.TakesTables" >
+    insert into takes_tables (id, materials, takes_name, 
+      takes_number, price, takes_date, 
+      application)
+    values (#{id,jdbcType=INTEGER}, #{materials,jdbcType=VARCHAR}, #{takesName,jdbcType=VARCHAR}, 
+      #{takesNumber,jdbcType=INTEGER}, #{price,jdbcType=BIGINT}, #{takesDate,jdbcType=TIMESTAMP}, 
+      #{application,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adv.pojo.TakesTables" >
+    insert into takes_tables
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materials != null" >
+        materials,
+      </if>
+      <if test="takesName != null" >
+        takes_name,
+      </if>
+      <if test="takesNumber != null" >
+        takes_number,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="takesDate != null" >
+        takes_date,
+      </if>
+      <if test="application != null" >
+        application,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="materials != null" >
+        #{materials,jdbcType=VARCHAR},
+      </if>
+      <if test="takesName != null" >
+        #{takesName,jdbcType=VARCHAR},
+      </if>
+      <if test="takesNumber != null" >
+        #{takesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="takesDate != null" >
+        #{takesDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="application != null" >
+        #{application,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adv.pojo.TakesTablesExample" resultType="java.lang.Integer" >
+    select count(*) from takes_tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update takes_tables
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.materials != null" >
+        materials = #{record.materials,jdbcType=VARCHAR},
+      </if>
+      <if test="record.takesName != null" >
+        takes_name = #{record.takesName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.takesNumber != null" >
+        takes_number = #{record.takesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=BIGINT},
+      </if>
+      <if test="record.takesDate != null" >
+        takes_date = #{record.takesDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.application != null" >
+        application = #{record.application,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update takes_tables
+    set id = #{record.id,jdbcType=INTEGER},
+      materials = #{record.materials,jdbcType=VARCHAR},
+      takes_name = #{record.takesName,jdbcType=VARCHAR},
+      takes_number = #{record.takesNumber,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=BIGINT},
+      takes_date = #{record.takesDate,jdbcType=TIMESTAMP},
+      application = #{record.application,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adv.pojo.TakesTables" >
+    update takes_tables
+    <set >
+      <if test="materials != null" >
+        materials = #{materials,jdbcType=VARCHAR},
+      </if>
+      <if test="takesName != null" >
+        takes_name = #{takesName,jdbcType=VARCHAR},
+      </if>
+      <if test="takesNumber != null" >
+        takes_number = #{takesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="takesDate != null" >
+        takes_date = #{takesDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="application != null" >
+        application = #{application,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adv.pojo.TakesTables" >
+    update takes_tables
+    set materials = #{materials,jdbcType=VARCHAR},
+      takes_name = #{takesName,jdbcType=VARCHAR},
+      takes_number = #{takesNumber,jdbcType=INTEGER},
+      price = #{price,jdbcType=BIGINT},
+      takes_date = #{takesDate,jdbcType=TIMESTAMP},
+      application = #{application,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

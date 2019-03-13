@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adv.mapper.BuyTablesMapper" >
+  <resultMap id="BaseResultMap" type="com.adv.pojo.BuyTables" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="materials" property="materials" jdbcType="VARCHAR" />
+    <result column="buy_name" property="buyName" jdbcType="VARCHAR" />
+    <result column="buy_number" property="buyNumber" jdbcType="INTEGER" />
+    <result column="unit_price" property="unitPrice" jdbcType="BIGINT" />
+    <result column="total_price" property="totalPrice" jdbcType="BIGINT" />
+    <result column="buy_date" property="buyDate" jdbcType="TIMESTAMP" />
+    <result column="supplier" property="supplier" jdbcType="VARCHAR" />
+    <result column="supp_phone" property="suppPhone" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, materials, buy_name, buy_number, unit_price, total_price, buy_date, supplier, 
+    supp_phone, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.adv.pojo.BuyTablesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from buy_tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from buy_tables
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from buy_tables
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adv.pojo.BuyTablesExample" >
+    delete from buy_tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adv.pojo.BuyTables" >
+    insert into buy_tables (id, materials, buy_name, 
+      buy_number, unit_price, total_price, 
+      buy_date, supplier, supp_phone, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{materials,jdbcType=VARCHAR}, #{buyName,jdbcType=VARCHAR}, 
+      #{buyNumber,jdbcType=INTEGER}, #{unitPrice,jdbcType=BIGINT}, #{totalPrice,jdbcType=BIGINT}, 
+      #{buyDate,jdbcType=TIMESTAMP}, #{supplier,jdbcType=VARCHAR}, #{suppPhone,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adv.pojo.BuyTables" >
+    insert into buy_tables
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materials != null" >
+        materials,
+      </if>
+      <if test="buyName != null" >
+        buy_name,
+      </if>
+      <if test="buyNumber != null" >
+        buy_number,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="buyDate != null" >
+        buy_date,
+      </if>
+      <if test="supplier != null" >
+        supplier,
+      </if>
+      <if test="suppPhone != null" >
+        supp_phone,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="materials != null" >
+        #{materials,jdbcType=VARCHAR},
+      </if>
+      <if test="buyName != null" >
+        #{buyName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyNumber != null" >
+        #{buyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=BIGINT},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="buyDate != null" >
+        #{buyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplier != null" >
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="suppPhone != null" >
+        #{suppPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adv.pojo.BuyTablesExample" resultType="java.lang.Integer" >
+    select count(*) from buy_tables
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update buy_tables
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.materials != null" >
+        materials = #{record.materials,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyName != null" >
+        buy_name = #{record.buyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyNumber != null" >
+        buy_number = #{record.buyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.unitPrice != null" >
+        unit_price = #{record.unitPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalPrice != null" >
+        total_price = #{record.totalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.buyDate != null" >
+        buy_date = #{record.buyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.supplier != null" >
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suppPhone != null" >
+        supp_phone = #{record.suppPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update buy_tables
+    set id = #{record.id,jdbcType=INTEGER},
+      materials = #{record.materials,jdbcType=VARCHAR},
+      buy_name = #{record.buyName,jdbcType=VARCHAR},
+      buy_number = #{record.buyNumber,jdbcType=INTEGER},
+      unit_price = #{record.unitPrice,jdbcType=BIGINT},
+      total_price = #{record.totalPrice,jdbcType=BIGINT},
+      buy_date = #{record.buyDate,jdbcType=TIMESTAMP},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      supp_phone = #{record.suppPhone,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adv.pojo.BuyTables" >
+    update buy_tables
+    <set >
+      <if test="materials != null" >
+        materials = #{materials,jdbcType=VARCHAR},
+      </if>
+      <if test="buyName != null" >
+        buy_name = #{buyName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyNumber != null" >
+        buy_number = #{buyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=BIGINT},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="buyDate != null" >
+        buy_date = #{buyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplier != null" >
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="suppPhone != null" >
+        supp_phone = #{suppPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adv.pojo.BuyTables" >
+    update buy_tables
+    set materials = #{materials,jdbcType=VARCHAR},
+      buy_name = #{buyName,jdbcType=VARCHAR},
+      buy_number = #{buyNumber,jdbcType=INTEGER},
+      unit_price = #{unitPrice,jdbcType=BIGINT},
+      total_price = #{totalPrice,jdbcType=BIGINT},
+      buy_date = #{buyDate,jdbcType=TIMESTAMP},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      supp_phone = #{suppPhone,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
